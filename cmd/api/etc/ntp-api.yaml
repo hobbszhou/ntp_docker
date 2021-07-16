@@ -1,0 +1,19 @@
+Name: ntp-api
+Host: 0.0.0.0
+Port: 8085
+
+
+LogConf:
+  ServiceName: "auth"
+  Mode: "file"
+  TimeFormat:
+  Path: "logs"
+  Level: "info"
+  Compress: true
+  KeepDays: 30
+  StackCooldownMillis: 100
+
+Ntp:
+  # 单位秒
+  NtpConfigFile: "/root/go/src/ntp_server/ntp.conf"
+  NtpScript: "../../scripts/ntpStart.sh"

@@ -1,0 +1,31 @@
+syntax = "v1"
+
+info(
+	title: "ntp server 服务"
+	desc: "ntp server 服务"
+	author: "zhou_hongbo"
+	email: "zhou_hongbo@venusgroup.com.cn"
+)
+
+type (
+	// ntp服务端配置请求，提交配置的时候传这个,post
+	NtpInfoReq {
+		Time_zone       string `json:"time_zone"`       // 时区
+		Ntp_remote_addr string `json:"ntp_remote_addr"` // ntp远端同步的服务端地址，自建ntp通过这个地址同步
+	}
+	// 前端掉这个接口，获取后端ntp服务的所有时区，及当前的系统时间，get请求
+	NtpInfoRep {
+		Time_zone []string `json:"time_zone"` // 给前端返回所有的时区
+		Ntp_time  string   `json:"ntp_time"` // ntp服务端的当前时间
+	}
+)
+@server(
+	middleware: Cors
+)
+service ntp-api {
+	@handler GetNtpInfo // TODO: set handler name and delete this comment
+	get /api/v1/ntp/ntpInfo () returns (NtpInfoRep)
+	
+	@handler CreateNtpServer // TODO: set handler name and delete this comment
+	post /api/v1/ntp/ntpServer (NtpInfoReq)
+}
